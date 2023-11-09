@@ -1,19 +1,16 @@
-// https://api.pexels.com/v1/search?query=[your-secondary-query]
-
-const url1 = "https://api.pexels.com/v1/search?query=Tigers";
-const url2 = "https://api.pexels.com/v1/search?query=Dogs";
 const apiKey = "SNKd3F7LhzM8Pm03HjpIBf1dfIHc7aWuMStQGx7bx6jvTStuEhF9Q4Ce";
 
-
-
+const submitBtn = document.querySelector(".queryB");
 
 const loadB = document.querySelector(".loadImg");
 const loadBM = document.querySelector(".loadImg2");
 
-function fetchDataAndDisplayImages(url, loadButtonSelector) {
+function fetchDataAndDisplayImages(query, loadButtonSelector) {
   const loadButton = loadButtonSelector;
 
   loadButton.addEventListener("click", function () {
+    const url = `https://api.pexels.com/v1/search?query=${query}`;
+
     fetch(url, {
       headers: {
         Authorization: apiKey,
@@ -64,8 +61,13 @@ function fetchDataAndDisplayImages(url, loadButtonSelector) {
   });
 }
 
-fetchDataAndDisplayImages(url1, loadB);
-fetchDataAndDisplayImages(url2, loadBM);
+submitBtn.addEventListener("click", function () {
+  const newQuery = document.querySelector("#queryI").value;
+  fetchDataAndDisplayImages(newQuery, loadB);
+});
+
+fetchDataAndDisplayImages("Tigers", loadB);
+fetchDataAndDisplayImages("Dogs", loadBM);
 
 const hideButtons = document.querySelectorAll(".hide");
 
